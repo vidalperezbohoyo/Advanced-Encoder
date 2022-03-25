@@ -6,47 +6,47 @@ Autor: Vidal Perez Bohoyo.*/
 
 #include "Arduino.h"
 
-
 class AdvancedEncoder
-{
+{ 
   public:
-    AdvancedEncoder ();
 
+    AdvancedEncoder(uint8_t pinA, uint8_t pinB);
+
+    // ISRs to call when there is a hw interrupt.
     void ISR_A();
     void ISR_B();
 
-    int obtenerValor();
-    void ajustarValor(long valor_esperado);
-   
-    void ajustarIncremento(int incremento_esperado){ incremento = incremento_esperado; };
-    void ajustarDecremento(int decremento_esperado){ decremento = decremento_esperado; };
-    
-    void ajustarRango(long minimo, long maximo);
-    void sinRango(){ existe_rango = false; }; 
+    long getValue(); // Obtain value.
 
-    bool algunCambio();
+    void setValue(long value); // Set a custom value.
+    
+    // Set increment or decrement for every encoder tick. Both must be positive numbers.
+    void setIncrement(long increment);
+    void setDecrement(long decrement);
+    
+    // Set or remove min/max values that encoder can get. 
+    void setRange(long min, long max);  // Min possible: -1073741824  Max possible: 1073741823
+    void removeRange();
+
+    bool anyChange(); // Return if there was a change in the encoder value.
     
   private:
 
-    void aumentarValor();
-    void disminuirValor();
+    void increase();
+    void decrease();
 
-    volatile long valor = 0;
+    volatile long value_ = 0;
 
-    int incremento = 1;
-    int decremento = 1;
+    int increment_ = 1;
+    int decrement_ = 1;
 
-    long max = 0;
-    long min = 0;
+    long range_[] = {-1073741824, 1073741823}; // Min/Max posible
 
-    bool existe_rango = false;
+    volatile bool lastA_, lastB_;
 
-    volatile bool lastA;
-    volatile bool lastB; 
-    bool algun_cambio_ = false;
+    uint8_t pinA_, pinB_;
 
-    
-    
+    bool any_change_ = false;
 };
 
 #endif

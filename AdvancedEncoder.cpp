@@ -1,15 +1,17 @@
 #include "Arduino.h"
 #include "AdvancedEncoder.h"
 
-AdvancedEncoder :: AdvancedEncoder ()
-{
-    lastA = digitalRead(2);
-    lastB = digitalRead(3);
+AdvancedEncoder::AdvancedEncoder(uint8_t pinA, uint8_t pinB) {
+    pinA_ = pinA;
+    pinB_ = pinB;
+    // Set a initial last state
+    lastA_ = digitalRead(pinA_);
+    lastB_ = digitalRead(pinB_);
 }
 
 void AdvancedEncoder :: ISR_A()
 {
-    delayMicroseconds(500);
+    delayMicroseconds(500); // Small debounce Upgade better
     bool actualA = digitalRead(2);
     bool actualB = digitalRead(3);
 
