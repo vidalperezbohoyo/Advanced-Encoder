@@ -1,0 +1,7 @@
+AdvancedEncoder	KEYWORD1
+moverA	KEYWORD2
+moverB	KEYWORD2
+mover	KEYWORD2
+pararA	KEYWORD2
+pararB	KEYWORD2
+parar	KEYWORD2
