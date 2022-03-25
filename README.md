@@ -3,6 +3,7 @@
 ![](./images/logo.jpg)
 
 A simple but effective library to control a rotatory encoder (mechanical or optic). 
+Suports: HW-040, optic encoders, etc. (All bidirectional encoders).
 
 ## Features:
 - Uses hardware interrupts to catch signals. 
